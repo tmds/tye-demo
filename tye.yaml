@@ -1,0 +1,22 @@
+name: dotnet-demo
+services:
+- name: backend
+  project: src/Backend/Backend.csproj
+- name: frontend
+  project: src/Frontend/Frontend.csproj
+- name: customerdb
+  image: docker.io/library/postgres:13
+  env:
+  - name: POSTGRES_PASSWORD
+    value: "pass@word1"
+  - name: POSTGRES_USER
+    value: postgres
+  - name: POSTGRES_DB
+    value: customers
+  volumes:
+   - name: data-vol
+     source: tye/customerdb
+     target: /var/lib/pgsql/data
+  bindings:
+  - containerPort: 5432
+    connectionString: Host=${host};Port=${port};Database=${env:POSTGRES_DB};Username=${env:POSTGRES_USER};Password=${env:POSTGRES_PASSWORD};
