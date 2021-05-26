@@ -2,6 +2,9 @@ name: dotnet-demo
 services:
 - name: backend
   project: src/Backend/Backend.csproj
+  env:
+  - name: MIGRATE
+    value: y
 - name: frontend
   project: src/Frontend/Frontend.csproj
 - name: customerdb
@@ -14,8 +17,7 @@ services:
   - name: POSTGRES_DB
     value: customers
   volumes:
-   - name: data-vol
-     source: tye/customerdb
+   - source: tye/customerdb
      target: /var/lib/pgsql/data
   bindings:
   - containerPort: 5432

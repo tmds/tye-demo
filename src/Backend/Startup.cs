@@ -40,12 +40,13 @@ namespace Backend
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            if (Configuration["MIGRATE"] == "y")
+            {
+                MigrateDatabase(app, seedDatabase: env.IsDevelopment());
+            }
+
             if (env.IsDevelopment())
             {
-                // if (Configuration.Get<string>("MIGRATE") == "y")
-                {
-                    MigrateDatabase(app);
-                }
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Backend v1"));
@@ -63,8 +64,9 @@ namespace Backend
             });
         }
 
-        private static void MigrateDatabase(IApplicationBuilder app)
+        private static void MigrateDatabase(IApplicationBuilder app, bool seedDatabase)
         {
+            System.Console.WriteLine("MigrateDatabase");
             using (var serviceScope = app.ApplicationServices
                 .GetRequiredService<IServiceScopeFactory>()
                 .CreateScope())
@@ -72,6 +74,18 @@ namespace Backend
                 using (var context = serviceScope.ServiceProvider.GetService<CustomerDbContext>())
                 {
                     context.Database.Migrate();
+
+                    if (seedDatabase)
+                    {
+                        foreach (var name in new[] { "John", "Matt", "Omair", "Dan", "Radka", "Andrew", "Tom" })
+                        {
+                            if (!context.Customers.Any())
+                            {
+                                context.Customers.Add(new Customer { Name = name });
+                            }
+                        }
+                        context.SaveChanges();
+                    }
                 }
             }
         }
