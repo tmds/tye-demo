@@ -66,7 +66,6 @@ namespace Backend
 
         private static void MigrateDatabase(IApplicationBuilder app, bool seedDatabase)
         {
-            System.Console.WriteLine("MigrateDatabase");
             using (var serviceScope = app.ApplicationServices
                 .GetRequiredService<IServiceScopeFactory>()
                 .CreateScope())
