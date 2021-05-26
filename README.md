@@ -12,11 +12,6 @@ Install `tye`:
 $ dotnet tool install -g Microsoft.Tye --version "*-*"
 ```
 
-Create a folder for storing the database we use during development:
-```
-$ mkdir -p tye/customerdb
-```
-
 Run tye:
 ```
 $ tye run

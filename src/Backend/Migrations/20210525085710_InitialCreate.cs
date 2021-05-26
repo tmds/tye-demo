@@ -19,15 +19,6 @@ namespace Backend.Migrations
                 {
                     table.PrimaryKey("PK_Customers", x => x.Id);
                 });
-
-            // Seed the database.
-            foreach (var name in new[] { "John", "Matt", "Omair", "Dan", "Radka", "Andrew", "Tom" })
-            {
-                migrationBuilder.InsertData(
-                    table: "Customers",
-                    columns: new[] { "Name" },
-                    values: new object[] { name });
-            }
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
