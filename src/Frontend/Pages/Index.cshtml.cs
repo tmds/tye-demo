@@ -8,18 +8,18 @@ namespace Frontend.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly BackendClient _customerClient;
+        private readonly BackendClient _contactClient;
 
-        public IndexModel(BackendClient customerClient)
+        public IndexModel(BackendClient contactClient)
         {
-            _customerClient = customerClient;
+            _contactClient = contactClient;
         }
 
-        public IList<Customer> Customers { get; private set; }
+        public IList<Contact> Contacts { get; private set; }
 
         public async Task OnGetAsync()
         {
-            Customers = await _customerClient.GetCustomersAsync();
+            Contacts = await _contactClient.GetContactsAsync();
         }
     }
 }

@@ -20,11 +20,11 @@ namespace Frontend
              this.client = client;
          }
  
-         public async Task<Customer[]> GetCustomersAsync()
+         public async Task<Contact[]> GetContactsAsync()
          {
-             var responseMessage = await this.client.GetAsync("/customers");
+             var responseMessage = await this.client.GetAsync("/contacts");
              var stream = await responseMessage.Content.ReadAsStreamAsync();
-             return await JsonSerializer.DeserializeAsync<Customer[]>(stream, options);
+             return await JsonSerializer.DeserializeAsync<Contact[]>(stream, options);
          }
      }
 }

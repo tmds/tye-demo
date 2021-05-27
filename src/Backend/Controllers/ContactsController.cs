@@ -11,21 +11,21 @@ namespace Backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CustomersController : ControllerBase
+    public class ContactsController : ControllerBase
     {
-        private readonly CustomerDbContext _db;
-        private readonly ILogger<CustomersController> _logger;
+        private readonly ContactDbContext _db;
+        private readonly ILogger<ContactsController> _logger;
 
-        public CustomersController(CustomerDbContext db, ILogger<CustomersController> logger)
+        public ContactsController(ContactDbContext db, ILogger<ContactsController> logger)
         {
             _db = db;
             _logger = logger;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Customer>> Get()
+        public async Task<IEnumerable<Contact>> Get()
         {
-            return await _db.Customers.AsNoTracking().ToListAsync();
+            return await _db.Contacts.AsNoTracking().ToListAsync();
         }
     }
 }

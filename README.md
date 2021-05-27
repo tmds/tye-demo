@@ -32,8 +32,8 @@ services.AddHttpClient<BackendClient>(client =>
 `Backend` fits connectionstring for PostgreSQL:
 
 ```cs
-services.AddDbContext<CustomerDbContext>(options =>
-            options.UseNpgsql(Configuration.GetConnectionString("customerdb")));
+services.AddDbContext<ContactDbContext>(options =>
+            options.UseNpgsql(Configuration.GetConnectionString("contactdb")));
 ```
 
 ## Database configuration
@@ -49,7 +49,7 @@ private static void MigrateDatabase(IApplicationBuilder app, bool seedDatabase)
         .GetRequiredService<IServiceScopeFactory>()
         .CreateScope())
     {
-        using (var context = serviceScope.ServiceProvider.GetService<CustomerDbContext>())
+        using (var context = serviceScope.ServiceProvider.GetService<ContactDbContext>())
         {
             context.Database.Migrate();
 
@@ -57,9 +57,9 @@ private static void MigrateDatabase(IApplicationBuilder app, bool seedDatabase)
             {
                 foreach (var name in new[] { "John", "Matt", "Omair", "Dan", "Radka", "Andrew", "Tom" })
                 {
-                    if (!context.Customers.Any())
+                    if (!context.Contacts.Any())
                     {
-                        context.Customers.Add(new Customer { Name = name });
+                        context.Contacts.Add(new Contact { Name = name });
                     }
                 }
                 context.SaveChanges();
