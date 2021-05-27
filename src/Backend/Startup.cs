@@ -28,8 +28,8 @@ namespace Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CustomerDbContext>(options =>
-                        options.UseNpgsql(Configuration.GetConnectionString("customerdb")));
+            services.AddDbContext<ContactDbContext>(options =>
+                        options.UseNpgsql(Configuration.GetConnectionString("contactdb")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -70,7 +70,7 @@ namespace Backend
                 .GetRequiredService<IServiceScopeFactory>()
                 .CreateScope())
             {
-                using (var context = serviceScope.ServiceProvider.GetService<CustomerDbContext>())
+                using (var context = serviceScope.ServiceProvider.GetService<ContactDbContext>())
                 {
                     context.Database.Migrate();
 
@@ -78,9 +78,9 @@ namespace Backend
                     {
                         foreach (var name in new[] { "John", "Matt", "Omair", "Dan", "Radka", "Andrew", "Tom" })
                         {
-                            if (!context.Customers.Any())
+                            if (!context.Contacts.Any())
                             {
-                                context.Customers.Add(new Customer { Name = name });
+                                context.Contacts.Add(new Contact { Name = name });
                             }
                         }
                         context.SaveChanges();

@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Backend.Migrations
 {
-    [DbContext(typeof(CustomerDbContext))]
+    [DbContext(typeof(ContactDbContext))]
     [Migration("20210525085710_InitialCreate")]
     partial class InitialCreate
     {
@@ -20,7 +20,7 @@ namespace Backend.Migrations
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-            var entityBuilder = modelBuilder.Entity("Backend.Data.Customer", b =>
+            var entityBuilder = modelBuilder.Entity("Backend.Data.Contact", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,7 +34,7 @@ namespace Backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Contacts");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,7 +2,7 @@
 
 namespace Backend.Data
 {
-    public class Customer
+    public class Contact
     {
         public int Id { get; set; }
 

@@ -7,7 +7,7 @@ services:
     value: y
 - name: frontend
   project: src/Frontend/Frontend.csproj
-- name: customerdb
+- name: contactdb
   image: docker.io/library/postgres:13
   env:
   - name: POSTGRES_PASSWORD
@@ -15,9 +15,9 @@ services:
   - name: POSTGRES_USER
     value: postgres
   - name: POSTGRES_DB
-    value: customers
+    value: contacts
   volumes:
-   - source: tye/customerdb
+   - source: tye/contactdb
      target: /var/lib/pgsql/data
   bindings:
   - containerPort: 5432
