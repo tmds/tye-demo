@@ -7,6 +7,7 @@ services:
     value: y
 - name: frontend
   project: src/Frontend/Frontend.csproj
+  replicas: 2
 - name: contactdb
   image: docker.io/library/postgres:13
   env:
